@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128086290-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-128086290-1');
+        </script>
+        <title>UUID 101 | Inspect UUIDs</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <script type="text/javascript" src="js/validation.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <div class="content">
+            <div>
+                <h1>UUID 101</h1>
+                <input
+                    type="text"
+                    id="uuid"
+                    placeholder="Type in a UUID here"
+                    pattern="\s*[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}\s*"
+                    autocomplete="off"
+                    spellcheck="false"
+                    required
+                    autofocus/>
+            </div>
+            <div id="uuid1_info" class="info">
+                <div>
+                    <p>
+                        This is a version <span class="version"></span>, variant
+                        <span class="variant"></span> UUID. Version 1 UUIDs try to isolate a point
+                        in time and space by incorporating a timestamp and an IEEE 802 MAC address.
+                        These UUIDs use a 60-bit timestamp representing the number of 100-nanosecond
+                        intervals since 1582-10-15 00:00:00 UTC. This particular UUID was generated
+                        at <span class="tooltip"><span id="time"></span><span class="tooltiptext">
+                        Your browser does not support the calculation of the UUID 1 date and time.
+                        Currently, the latest version of Chrome supports this.</span></span>.
+                        This is generally UTC, but the RFC allows systems that do not have UTC
+                        available to use their local time.
+                    </p>
+
+                    <p>
+                        The final 48 bits of this UUID are typically a MAC address. However, when a
+                        MAC address is not available, or if its use is undesirable due to privacy
+                        concerns, the RFC permits the use of a 48-bit node ID instead. In this case,
+                        the node ID should have the least significant bit of the first octet set to
+                        one, with the other 47 bits randomly generated. Likewise, for UUIDs which do
+                        contain a MAC address, the least significant bit of the first octet is the
+                        multicast bit, which will generally be zero.
+                        <span id="mac_addr_desc" class="optional">In this case, a MAC address of
+                        <a id="mac_lookup" href="" target="_blank"><span class="mac_addr"></span></a>
+                        was supplied.</span>
+                        <span id="node_id_desc" class="optional">In this case, a randomly-generated node ID was
+                        supplied.</span>
+                    </p>
+                    </p>
+                    <div id="version_info">
+                        <p>
+                            The version of the UUID can be determined from the most significant
+                            four bits of the seventh octet.  The integer value of these four
+                            bits corresponds directly to the version number. Currently, only
+                            versions 1 through 5 exist.
+                        </p>
+                        <p>
+                            <span id="version_uuid_highlight" class="uuid_highlight"></span>
+                        </p>
+                        <p>
+                            The variant is determined by a variable number of the most significant bits in the ninth octet.
+                        </p>
+                        <p>
+                            <span id="variant_uuid_highlight" class="uuid_highlight"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="uuid2_info" class="info">
+                <div>
+                    <p>This is the uuid: <span class="full_uuid"></span></p>
+                    <p>
+                        PLACEHOLDER
+                    </p>
+                </div>
+            </div>
+            <div id="uuid3_info" class="info">
+                <div>
+                    <p>This is the uuid: <span class="full_uuid"></span></p>
+                    <p>
+                        PLACEHOLDER
+                    </p>
+                </div>
+            </div>
+            <div id="uuid4_info" class="info">
+                <div>
+                    <p>
+                        This is a version <span class="version"></span>, variant
+                        <span class="variant"></span> UUID. Version 4 UUIDs
+                        are entirely random.
+                    </p>
+                </div>
+            </div>
+            <div id="uuid5_info" class="info">
+                <div>
+                    <p>This is the uuid: <span class="full_uuid"></span></p>
+                    <p>
+                        PLACEHOLDER
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <a href="about.html">about</a>
+            <a href="faq.html">faq</a>
+            <a href="https://tools.ietf.org/html/rfc4122">rfc</a>
+        </div>
+    </body>
+</html>
