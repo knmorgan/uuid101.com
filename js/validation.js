@@ -7,16 +7,17 @@ if (typeof BigInt === 'undefined') {
     canCalculateDatetime = false;
 }
 
-function showInfo(infoId, shouldShow) {
+function showInfo(version, shouldShow) {
     let infoElements = document.getElementsByClassName('info');
     for (let element of infoElements) {
         element.style.display = 'none';
     }
 
     // Move the version/variant info to the correct info div.
+    let infoId = `uuid${version}_info`;
     let versionDiv = document.getElementById('version_info');
     let infoDiv = document.getElementById(infoId);
-    if (infoDiv !== null) {
+    if (version !== 0 && infoDiv !== null) {
         infoDiv.appendChild(versionDiv);
     }
 
@@ -42,14 +43,20 @@ function colorPortion(id, color, value, startIndex, endIndex) {
 }
 
 function getVersion(uuid) {
-    let versionChar = uuid[VERSION_POS];
-    let version = parseInt(versionChar, 16);
-    if (version >= 1 && version <= 5) {
-        return version;
+    let version = -1;
+
+    if (isNilUUID(uuid)) {
+        // Use zero to represent the nil uuid.
+        version = 0;
     } else {
-        // Only versions 1-5 are real.
-        return -1;
+        let versionChar = uuid[VERSION_POS];
+        version = parseInt(versionChar, 16);
+        if (version >= 1 && version <= 5) {
+            return version;
+        }
     }
+
+    return version;
 }
 
 function getVariant(uuid) {
@@ -65,6 +72,10 @@ function getVariant(uuid) {
     } else { // e..f
         return 3;
     }
+}
+
+function isNilUUID(uuid) {
+    return uuid === '00000000-0000-0000-0000-000000000000';
 }
 
 function handleVersion1(uuid) {
@@ -162,18 +173,17 @@ function getTimestamp(uuid) {
 }
 
 function processUUID(e) {
-    let infoId = '';
     let shouldShowInfo = false;
+    let version = null;
 
     if ($(e.target).is(':valid')) {
         shouldShowInfo = true;
         let uuid = document.getElementById('uuid').value.trim().toUpperCase();
         let nodeId = getNodeId(uuid);
         let variant = getVariant(uuid);
-        let version = getVersion(uuid);
+        version = getVersion(uuid);
         let mac_addr = getMacAddress(nodeId);
 
-        infoId = `uuid${version}_info`;
 
         substituteAll('full_uuid', uuid);
         substituteAll('variant', variant);
@@ -192,7 +202,7 @@ function processUUID(e) {
         history.replaceState({}, 'foo', '/' + uuid.toLowerCase());
     }
 
-    showInfo(infoId, shouldShowInfo);
+    showInfo(version, shouldShowInfo);
 }
 
 function init() {
