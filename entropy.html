@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128086290-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-128086290-1');
+        </script>
+        <title>UUID 101 | Inspect UUIDs</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <div class="content">
+            <div>
+                <h1>Entropy Analysis</h1>
+            </div>
+            <div>
+                <p>
+                    All UUIDs are 128 bits, but they have varying amounts of entropy. For
+                    example, a version 1 UUID has a 60-bit timestamp and a 48-bit node ID, but
+                    it cannot be said to have 108 bits of entropy. First, the node ID only has
+                    47 bits of entropy rather than 48, due to the multicast bit on MAC addresses
+                    and the fixed bit on random node IDs. And the timestamp is using an epoch
+                    date in the 16th century, and can address dates into the 53rd century, which
+                    is not going to happen in practice. Over any given century, the timestamp
+                    used in a version 1 UUID can be said to have ~55 bits of entropy. And
+                    likewise, it has ~48 bits of entropy over any given decade. When used over
+                    the course of a century, a version 1 UUID would have approximately 102 bits
+                    of entropy in total.
+                </p>
+
+                <p>
+                    Version 4 UUIDs are simpler. In general, six total bits are consumed by the
+                    version and variant markers, leaving 122 bits of entropy. This means that,
+                    over a century, roughly one million times as many version 4 UUIDs can be
+                    expressed than version 1 UUIDs.
+                </p>
+
+                <p>
+                    Now, despite this, version 1 UUIDs should guarantee uniqueness by their
+                    nature of specifying a point in time and space, assuming they're using a MAC
+                    address rather than a randomly-generated node ID. There is a chance of
+                    collision among version 4 UUIDs, although it is negligibly small.
+                </p>
+            </div>
+        </div>
+        <div class="footer">
+            <a href="about.html">about</a>
+            <a href="faq.html">faq</a>
+            <a href="https://tools.ietf.org/html/rfc4122">rfc</a>
+        </div>
+    </body>
+</html>
